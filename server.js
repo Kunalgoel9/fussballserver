@@ -78,10 +78,12 @@ app.get("/prevMatches", async (req, res) => {
   );
 });
 
-app.get("/getImages", async (req, res) => {
+app.post("/getImages", async (req, res) => {
   try {
     const { url } = req.body;
+
     var images = [];
+
     const resa = await axios.get(url);
 
     var $ = cheerio.load(resa.data);
