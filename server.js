@@ -62,7 +62,10 @@ app.get("/", async (req, res) => {
   parseMatchplan(
     "https://www.fussball.de/ajax.club.next.games/-/id/00ES8GNA1O000011VV0AG08LVUPGND5I/mode/PAGE",
     async function (response) {
-      res.status(200).send(response);
+      const arrayOfObj = Object.entries(response).map((e) => ({
+        [e[0]]: e[1],
+      }));
+      res.status(200).send(arrayOfObj);
     }
   );
 });
@@ -70,7 +73,10 @@ app.get("/prevMatches", async (req, res) => {
   parseMatchplan(
     "https://www.fussball.de/ajax.club.prev.games/-/id/00ES8GNA1O000011VV0AG08LVUPGND5I/mode/PAGE",
     async function (response) {
-      res.status(200).send(response);
+      const arrayOfObj = Object.entries(response).map((e) => ({
+        [e[0]]: e[1],
+      }));
+      res.status(200).send(arrayOfObj);
     }
   );
 });
