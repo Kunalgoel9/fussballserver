@@ -83,16 +83,21 @@ app.post("/getImages", async (req, res) => {
     const { url } = req.body;
 
     var images = [];
+    var stats = [];
 
     const resa = await axios.get(url);
 
     var $ = cheerio.load(resa.data);
 
+    $(".column-stats").map((index, value) => {
+      stats.push($(value).text());
+    });
+
     $(".table img").map((index, value) => {
       images.push(value.attribs.src);
     });
 
-    res.status(200).send(images);
+    res.status(200).send({ images, stats: [stats[0], stats[1]] });
   } catch (error) {
     console.log(error);
     res.status(500).send("Internal server error");
